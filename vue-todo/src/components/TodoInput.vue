@@ -1,6 +1,6 @@
 <template>
   <div class="inputBox shadow">
-    <input type="text" v-model="str" v-on:keyup.enter="addTodo">
+    <input type="text" v-model="newTodoItem" v-on:keyup.enter="addTodo">
     <!-- <button v-on:click='addTodo'> add</button> -->
     <span class="addContainer" v-on:click="addTodo">
       
@@ -15,20 +15,22 @@ export default {
 
   data: function() {
       return  {
-        str: ''
+        newTodoItem: ''
       }
     },
     methods: {
       addTodo: function() {
-        console.log(this.str);     
-
-        localStorage.setItem(this.str, this.str);
-        // localStorage.getItem(this.str);
-        this.clearInput();
+        var obj = {completed: false, item: this.newTodoItem}
+        //Json.stringfy javascript 객체를 스트링으로 바꿔서 넣어준다.
+        if(this.newTodoItem !== '') {
+          localStorage.setItem(this.newTodoItem, JSON.stringify(obj));  
+          //localStorage.setItem(this.newTodoItem, obj);  
+          this.clearInput();
+        }
       },
 
       clearInput: function() {
-        this.str = '';
+        this.newTodoItem = '';
       }
     }
 
