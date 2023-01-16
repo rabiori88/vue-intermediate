@@ -10,9 +10,7 @@ export default {
     clearTodo : function() {
       this.$emit('clearAllItems');
     }
-
   }
-
 }
 </script>
 

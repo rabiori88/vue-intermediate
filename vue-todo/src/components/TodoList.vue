@@ -21,18 +21,12 @@ export default {
 
   methods:{
     removeTodo: function(todoItem, idx) {      
-      this.$emit('removeItem', todoItem, idx);    
-      
+      this.$emit('removeItem', todoItem, idx);
     },
-    toggleComplete: function(todoItem, idx) {
-      
+    toggleComplete: function(todoItem, idx) {      
       this.$emit('toggleItem', todoItem, idx);
-     
-      
     }
-  },  
-
-
+  },
 }
 </script>
 
