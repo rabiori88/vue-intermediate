@@ -25,12 +25,9 @@ export default {
       
     },
     toggleComplete: function(todoItem, idx) {
-
-      console.log( idx);
-      todoItem.completed = !todoItem.completed;
-      //로컬 스토리지 데이터 갱신
-      localStorage.removeItem(todoItem.item);
-      localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
+      
+      this.$emit('toggleItem', todoItem, idx);
+     
       
     }
   },  
