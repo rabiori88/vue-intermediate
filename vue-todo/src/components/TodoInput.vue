@@ -10,9 +10,7 @@
 </template>
 
 <script>
-
 export default {
-
   data: function() {
       return  {
         newTodoItem: ''
@@ -20,11 +18,10 @@ export default {
     },
     methods: {
       addTodo: function() {
-        var obj = {completed: false, item: this.newTodoItem}
         //Json.stringfy javascript 객체를 스트링으로 바꿔서 넣어준다.
         if(this.newTodoItem !== '') {
-          localStorage.setItem(this.newTodoItem, JSON.stringify(obj));  
-          //localStorage.setItem(this.newTodoItem, obj);  
+          // this.$emit('이벤트 이름 ', 인자1, 인자2, ///);
+          this.$emit('addTodoItem', this.newTodoItem);
           this.clearInput();
         }
       },

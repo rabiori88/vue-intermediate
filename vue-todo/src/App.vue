@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <TodoHeader></TodoHeader>
-    <TodoInput></TodoInput>
-    <TodoList></TodoList>
+    <TodoInput v-on:addTodoItem="addOneItem"></TodoInput>
+    <TodoList v-bind:propsdata="todoItems"></TodoList>
     <TodoFooter></TodoFooter>
     
   </div>
@@ -22,7 +22,36 @@ export default {
     'TodoInput': TodoInput,
     'TodoList': TodoList,
     'TodoFooter': TodoFooter,
-  }
+  },
+
+  data: function(){
+    return {
+      todoItems: []
+    }
+  },
+  methods: {
+    addOneItem : function(todoItem){
+      var obj = { completed: false, item: todoItem }
+      localStorage.setItem(this.newTodoItem, JSON.stringify(obj));
+      this.todoItems.push(obj);
+
+    }
+
+  },
+  //Vue 생성자 
+  created: function () {
+    if (localStorage.length > 0) {
+      for (var i = 0; i < localStorage.length; i++) {
+        if (localStorage.key(i) !== 'loglevel:webpack-dev-server') {
+          // console.log(JSON.parse(localStorage.getItem(localStorage.key(i))));
+          // localStorage.getItem(JSON.parse(localStorage.getItem(localStorage.key(i))));
+          this.todoItems.sort();
+          this.todoItems.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
+        }
+
+      }
+    }
+  },
 }
 </script>
 

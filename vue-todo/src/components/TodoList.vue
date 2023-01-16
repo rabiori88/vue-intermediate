@@ -1,7 +1,7 @@
 <template>
   <div>
     <ul>
-      <li v-for="(todoItem, idx) in todoItems" v-bind:key="todoItem.item" class="shadow">
+      <li v-for="(todoItem, idx) in propsdata" v-bind:key="todoItem.item" class="shadow">
         <i class="fas fa-check checkBtn" 
         v-bind:class="{checkBtnCompleted: todoItem.completed}" 
         v-on:click="toggleComplete(todoItem, idx)"></i>
@@ -15,19 +15,16 @@
 </template>
 
 <script>
-export default {
 
-  data: function() {
-    return {
-      todoItems: []
-    }
-  },
+export default {
+  props: ['propsdata'],
 
   methods:{
     removeTodo: function(todoItem, idx) {
-
+      console.log(this.propsdata);
+      
       localStorage.removeItem(todoItem);
-      this.todoItems.splice(idx, 1);
+      
       console.log(todoItem , idx);
 
     },
@@ -40,22 +37,7 @@ export default {
       localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
       
     }
-  },
-
-  //Vue 생성자 
-  created: function() {
-    if(localStorage.length > 0) {
-      for(var i = 0; i < localStorage.length; i++) {
-        if(localStorage.key(i) !== 'loglevel:webpack-dev-server')
-        {
-          // console.log(JSON.parse(localStorage.getItem(localStorage.key(i))));
-          // localStorage.getItem(JSON.parse(localStorage.getItem(localStorage.key(i))));
-          this.todoItems.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
-        }
-        
-      }
-    }
-  },
+  },  
 
 
 }
