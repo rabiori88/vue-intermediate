@@ -1,56 +1,51 @@
 <template>
   <div class="inputBox shadow">
-    <input type="text" v-model="newTodoItem" v-on:keyup.enter="addTodo">
+    <input type="text" v-model="newTodoItem" v-on:keyup.enter="addTodo" />
     <!-- <button v-on:click='addTodo'> add</button> -->
     <span class="addContainer" v-on:click="addTodo">
-      
       <i class="fa-regular fa-plus fa-flip addBtn"></i>
     </span>
 
     <Modal v-if="showModal" @close="showModal = false">
-      <h3 slot="header"> 경고 
-        <i class="fas fa-times closeModalBtn" @click="showModal = false"></i> </h3>
-      <div slot="body"> 무언가를 입력하세요 </div>
-      
+      <h3 slot="header">
+        경고
+        <i class="fas fa-times closeModalBtn" @click="showModal = false"></i>
+      </h3>
+      <div slot="body">무언가를 입력하세요</div>
     </Modal>
   </div>
 </template>
 
-
-
 <script>
-
-import Modal from './common/MyModal.vue'
+import Modal from "./common/MyModal.vue";
 
 export default {
-  data: function() {
-      return  {
-        newTodoItem: '',
-        showModal: false
+  data: () => {
+    return {
+      newTodoItem: "",
+      showModal: false,
+    };
+  },
+  methods: {
+    addTodo: () => {
+      //Json.stringfy javascript 객체를 스트링으로 바꿔서 넣어준다.
+      if (this.newTodoItem !== "") {
+        // this.$emit('이벤트 이름 ', 인자1, 인자2, ///);
+        this.$emit("addTodoItem", this.newTodoItem);
+        this.clearInput();
+      } else {
+        this.showModal = !this.showModal;
       }
     },
-    methods: {
-      addTodo: function() {
-        //Json.stringfy javascript 객체를 스트링으로 바꿔서 넣어준다.
-        if(this.newTodoItem !== '') {
-          // this.$emit('이벤트 이름 ', 인자1, 인자2, ///);
-          this.$emit('addTodoItem', this.newTodoItem);
-          this.clearInput();
-        } else {
-          this.showModal = !this.showModal;
-        }
-      },
 
-      clearInput: function() {
-        this.newTodoItem = '';
-      }
+    clearInput: () => {
+      this.newTodoItem = "";
     },
-    components: {
-      Modal
-
-    }
-
-}
+  },
+  components: {
+    Modal,
+  },
+};
 </script>
 
 <style scoped>
@@ -63,20 +58,18 @@ input:focus {
   height: 50px;
   line-height: 50px;
   border-radius: 5px;
-
 }
 
 .inputBox input {
-  border-style : none;
-  font-size : 0.9rem;
+  border-style: none;
+  font-size: 0.9rem;
 }
 
 .addContainer {
   float: right;
-  background: linear-gradient(to right, #6478FB, #8763FB);
+  background: linear-gradient(to right, #6478fb, #8763fb);
   width: 3rem;
   border-radius: 0 5px 5px 0;
-
 }
 
 .addBtn {
@@ -85,8 +78,6 @@ input:focus {
 }
 
 .closeModalBtn {
-  color:#42b983;
-
+  color: #42b983;
 }
-
 </style>

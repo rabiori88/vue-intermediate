@@ -7,11 +7,11 @@
 <script>
 export default {
   methods: {
-    clearTodo : function() {
-      this.$emit('clearAllItems');
-    }
-  }
-}
+    clearTodo: () => {
+      this.$emit("clearAllItems");
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -20,9 +20,8 @@ export default {
   height: 50px;
   line-height: 50px;
   background-color: white;
-  border-radius : 5px;
+  border-radius: 5px;
   margin: 0 auto;
-
 }
 
 .clearAllBtn {
