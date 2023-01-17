@@ -1,13 +1,9 @@
 <template>
   <div id="app">
     <TodoHeader></TodoHeader>
-    <TodoInput v-on:addTodoItem="addOneItem"></TodoInput>
-    <TodoList
-      v-bind:propsdata="todoItems"
-      v-on:removeItem="removeOneItem"
-      v-on:toggleItem="toggleOneItem"
-    ></TodoList>
-    <TodoFooter v-on:clearAllItems="clearAllItems"></TodoFooter>
+    <TodoInput></TodoInput>
+    <TodoList></TodoList>
+    <TodoFooter></TodoFooter>
   </div>
 </template>
 
@@ -19,53 +15,10 @@ import TodoFooter from "./components/TodoFooter.vue";
 
 export default {
   components: {
-    TodoHeader: TodoHeader,
-    TodoInput: TodoInput,
-    TodoList: TodoList,
-    TodoFooter: TodoFooter,
-  },
-
-  data: () => {
-    return {
-      todoItems: [],
-    };
-  },
-  methods: {
-    addOneItem: (todoItem) => {
-      const obj = { completed: false, item: todoItem };
-      localStorage.setItem(todoItem, JSON.stringify(obj));
-      this.todoItems.push(obj);
-    },
-
-    removeOneItem: (todoItem, idx) => {
-      localStorage.removeItem(todoItem.item);
-      this.todoItems.splice(idx, 1);
-    },
-
-    toggleOneItem: (todoItem, idx) => {
-      this.todoItems[idx].completed = !this.todoItems[idx].completed;
-      localStorage.removeItem(todoItem.item);
-      localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
-    },
-    clearAllItems: () => {
-      localStorage.clear();
-      this.todoItems = [];
-    },
-  },
-  //Vue 생성자
-  created: () => {
-    if (localStorage.length > 0) {
-      for (let i = 0; i < localStorage.length; i++) {
-        if (localStorage.key(i) !== "loglevel:webpack-dev-server") {
-          // console.log(JSON.parse(localStorage.getItem(localStorage.key(i))));
-          // localStorage.getItem(JSON.parse(localStorage.getItem(localStorage.key(i))));
-          this.todoItems.sort();
-          this.todoItems.push(
-            JSON.parse(localStorage.getItem(localStorage.key(i)))
-          );
-        }
-      }
-    }
+    TodoHeader,
+    TodoInput,
+    TodoList,
+    TodoFooter,
   },
 };
 </script>

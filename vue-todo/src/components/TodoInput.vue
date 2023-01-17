@@ -27,18 +27,21 @@ export default {
     };
   },
   methods: {
-    addTodo: () => {
+    addTodo() {
       //Json.stringfy javascript 객체를 스트링으로 바꿔서 넣어준다.
+      console.log(this.newTodoItem);
       if (this.newTodoItem !== "") {
         // this.$emit('이벤트 이름 ', 인자1, 인자2, ///);
-        this.$emit("addTodoItem", this.newTodoItem);
+        // this.$emit("addTodoItem", this.newTodoItem);
+        const text = this.newTodoItem.trim();
+        this.$store.commit("addOneItem", text);
         this.clearInput();
       } else {
         this.showModal = !this.showModal;
       }
     },
 
-    clearInput: () => {
+    clearInput() {
       this.newTodoItem = "";
     },
   },
